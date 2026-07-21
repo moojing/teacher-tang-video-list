@@ -54,7 +54,10 @@ describe('App', () => {
   test('initial render shows title, result count, and dated video items', () => {
     renderApp()
 
-    expect(screen.getByRole('heading', { name: '唐師父直播主題索引' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '師父 LIVE 直播主題索引' })).toBeInTheDocument()
+    expect(screen.getByText('找得快一點')).toBeInTheDocument()
+    expect(screen.getByText('學得深一點')).toBeInTheDocument()
+    expect(screen.getByText('師父這幾年講的直播太多，YouTube 又不好搜，這裡幫妳照主題分好了。省下找的時間，照主題一路學下去，新加入也能一次補齊。')).toBeInTheDocument()
     expect(screen.getByText('共 4 部影片')).toHaveAttribute('aria-live', 'polite')
     expect(screen.getByText('2026.07.10')).toBeInTheDocument()
     expect(screen.getByText('2026.06.01')).toBeInTheDocument()
