@@ -499,22 +499,49 @@ select:focus-visible {
 
 @media (max-width: 640px) {
   .hero {
-    min-height: min(720px, 100svh);
-    padding: 60px 16px 40px;
+    min-height: auto;
+    padding: 56px 18px 44px;
   }
 
-  .hero-tagline { font-size: 22px; }
+  .hero h1 { font-size: 36px; line-height: 1.3; }
+  .hero-tagline { margin-top: 18px; font-size: 22px; }
   .hero-tagline em { font-size: 20px; }
-  .hero-description { font-size: 15px; line-height: 1.8; }
-  .hero-topics { margin-top: 32px; }
-  .topic-orbit { width: min(520px, calc(100vw - 56px)); }
-  .topic-orbit-button { max-width: 126px; padding: 6px 9px; font-size: 10px; }
+  .hero-description {
+    max-width: 34rem;
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: center;
+  }
+  .hero-topics { margin-top: 28px; }
+  .topic-orbit { width: min(520px, calc(100vw - 32px)); }
+  .topic-orbit-button {
+    max-width: 124px;
+    min-height: 36px;
+    padding: 7px 9px;
+    font-size: 10px;
+  }
   .orbit-center strong { font-size: 34px; }
   .orbit-center small { font-size: 9px; }
 
-  .video-explorer { padding: 42px 16px 84px; }
-  .video-item { grid-template-columns: 1fr; gap: 8px; padding: 18px 0; }
-  .video-item > time { padding-top: 0; font-size: 10px; }
+  .video-explorer { padding: 36px 16px 72px; }
+  .filter-bar { gap: 20px; margin-bottom: 24px; }
+  .filter-options { gap: 8px; }
+  .filter-button { min-height: 44px; padding: 9px 12px; font-size: 12px; }
+  .sort-control .filter-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+  .sort-control .sort-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .result-count { padding-bottom: 12px; }
+  .video-item { grid-template-columns: 1fr; gap: 5px; padding: 18px 0; }
+  .video-item > time { padding-top: 0; font-size: 11px; }
+  .video-item article > a { font-size: 16px; line-height: 1.55; }
+  .video-meta { gap: 6px; margin-top: 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
