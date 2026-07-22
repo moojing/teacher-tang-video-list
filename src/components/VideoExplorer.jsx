@@ -12,6 +12,7 @@ export default function VideoExplorer({
   onStatusSelect,
   onTopicSelect,
   onSortChange,
+  onClearFilters,
 }) {
   const filterOptions = getFilterOptions(videos)
   const visibleVideos = sortVideos(
@@ -33,7 +34,13 @@ export default function VideoExplorer({
         sortBy={sortBy}
         onSortChange={onSortChange}
       />
-      <VideoList videos={visibleVideos} />
+      <VideoList
+        videos={visibleVideos}
+        query={query}
+        activeStatus={activeStatus}
+        activeTopic={activeTopic}
+        onClearFilters={onClearFilters}
+      />
     </main>
   )
 }

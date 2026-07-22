@@ -169,6 +169,24 @@ describe('App', () => {
     expect(screen.getByText('找不到符合條件的影片')).toBeInTheDocument()
   })
 
+  test('the empty state lists the active filters and clears them all', async () => {
+    const user = userEvent.setup()
+    renderApp()
+
+    // A topic plus a search term that never overlap: filters combine with AND.
+    const topicFilters = screen.getByRole('group', { name: '主題' })
+    await user.click(within(topicFilters).getByRole('button', { name: '財務 1' }))
+    await user.type(screen.getByRole('searchbox', { name: '搜尋影片' }), '占星')
+
+    expect(screen.getByText('共 0 部影片')).toBeInTheDocument()
+    expect(screen.getByText('目前條件：搜尋「占星」・主題「財務」')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: '清除全部篩選' }))
+
+    expect(screen.getByText('共 4 部影片')).toBeInTheDocument()
+    expect(screen.getByRole('searchbox', { name: '搜尋影片' })).toHaveValue('')
+  })
+
   test('clicking a topic in the hero orbit applies the topic chip filter', async () => {
     const user = userEvent.setup()
     renderApp()

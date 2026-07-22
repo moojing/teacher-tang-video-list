@@ -515,6 +515,34 @@ select:focus-visible {
   text-align: center;
 }
 
+.empty-state p { margin: 0; }
+
+/* Filters combine with AND, so spell out what is currently applied and offer a
+   one-tap reset — otherwise a stale filter looks like a broken search. */
+.empty-state-filters {
+  margin-top: 10px;
+  color: var(--gold);
+  line-height: 1.7;
+}
+
+.empty-state-clear {
+  min-height: 40px;
+  margin-top: 18px;
+  padding: 9px 18px;
+  border: 1px solid rgba(201, 164, 76, 0.5);
+  border-radius: 999px;
+  color: var(--gold);
+  background: transparent;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.1s ease;
+}
+
+.empty-state-clear:hover { border-color: var(--gold); background: rgba(201, 164, 76, 0.1); }
+.empty-state-clear:active { transform: scale(0.97); }
+
 .footer {
   padding: 40px 24px 60px;
   color: var(--ink-dim);

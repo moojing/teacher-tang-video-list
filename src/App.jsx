@@ -12,6 +12,12 @@ export default function App({ videos = importedVideos }) {
   const [sortBy, setSortBy] = useState('date-desc')
   const topics = getFilterOptions(videos).topics
 
+  const handleClearFilters = () => {
+    setQuery('')
+    setActiveStatus(null)
+    setActiveTopic(null)
+  }
+
   return (
     <div className="app-shell">
       <Hero
@@ -30,6 +36,7 @@ export default function App({ videos = importedVideos }) {
         onStatusSelect={setActiveStatus}
         onTopicSelect={setActiveTopic}
         onSortChange={setSortBy}
+        onClearFilters={handleClearFilters}
       />
       <Footer />
     </div>
