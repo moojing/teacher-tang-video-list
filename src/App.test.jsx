@@ -104,6 +104,29 @@ describe('App', () => {
     expect(screen.getByText('共 4 部影片')).toBeInTheDocument()
   })
 
+  test('a long topic list collapses to a subset with a show-all toggle', async () => {
+    const user = userEvent.setup()
+    const manyTopicVideos = Array.from({ length: 8 }, (_, index) => ({
+      id: `topic-${index}`,
+      title: `Video ${index}`,
+      date: `2026-07-0${index + 1}`,
+      url: `https://www.youtube.com/watch?v=topic${index}`,
+      topics: [`主題${index}`],
+      status: '一般公開',
+    }))
+    render(<App videos={manyTopicVideos} />)
+    const topicFilters = screen.getByRole('group', { name: '主題' })
+
+    // Collapsed: 6 topic chips + the toggle chip.
+    expect(within(topicFilters).getAllByRole('button')).toHaveLength(7)
+    await user.click(within(topicFilters).getByRole('button', { name: '顯示全部 +2' }))
+
+    // Expanded: all 8 topic chips + the "收合" toggle.
+    expect(within(topicFilters).getAllByRole('button')).toHaveLength(9)
+    await user.click(within(topicFilters).getByRole('button', { name: '收合' }))
+    expect(within(topicFilters).getAllByRole('button')).toHaveLength(7)
+  })
+
   test('sort buttons change the field and direction', async () => {
     const user = userEvent.setup()
     renderApp()

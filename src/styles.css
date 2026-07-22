@@ -342,11 +342,9 @@ select:focus-visible {
 
 .filter-options {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  overflow-x: auto;
-  padding: 3px 2px 8px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
+  padding: 3px 2px 4px;
 }
 
 .filter-button {
@@ -369,6 +367,34 @@ select:focus-visible {
 .filter-button:active { transform: scale(0.96); }
 .filter-button.is-active { color: var(--bg); background: var(--gold); border-color: var(--gold); font-weight: 500; }
 .status-filters .filter-button.is-active { color: var(--ink); background: var(--teal); border-color: var(--teal); }
+
+/* "Show all / collapse" toggle for the long topic list — a full-width button
+   below the chips, so filters wrap instead of scrolling sideways. */
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  margin-top: 6px;
+  padding: 8px 14px;
+  border: 1px dashed rgba(201, 164, 76, 0.5);
+  border-radius: 999px;
+  color: var(--gold);
+  background: transparent;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.1s ease;
+}
+
+.filter-toggle:hover { border-color: var(--gold); background: rgba(201, 164, 76, 0.1); }
+.filter-toggle:active { transform: scale(0.99); }
+
+.filter-toggle-arrow { font-size: 14px; font-weight: 600; line-height: 1; }
 
 .sort-button {
   display: inline-flex;
@@ -514,20 +540,30 @@ select:focus-visible {
     text-align: center;
   }
   .hero-topics { margin-top: 28px; }
-  .topic-orbit { width: min(520px, calc(100vw - 32px)); }
+  /* Use nearly the full width and push the side buttons further out so the
+     topic pills stay spaced apart (no overlap) on a phone-sized orbit. */
+  .topic-orbit { width: min(560px, calc(100vw - 20px)); }
   .topic-orbit-button {
-    max-width: 124px;
+    max-width: 104px;
     min-height: 36px;
-    padding: 7px 9px;
+    padding: 5px 9px;
+    gap: 6px;
     font-size: 10px;
   }
+  .topic-orbit-button[data-orbit-index="2"],
+  .topic-orbit-button[data-orbit-index="3"],
+  .topic-orbit-button[data-orbit-index="4"] { left: 76%; }
+  .topic-orbit-button[data-orbit-index="6"],
+  .topic-orbit-button[data-orbit-index="7"],
+  .topic-orbit-button[data-orbit-index="8"] { left: 24%; }
   .orbit-center strong { font-size: 34px; }
   .orbit-center small { font-size: 9px; }
 
   .video-explorer { padding: 36px 16px 72px; }
   .filter-bar { gap: 20px; margin-bottom: 24px; }
   .filter-options { gap: 8px; }
-  .filter-button { min-height: 44px; padding: 9px 12px; font-size: 12px; }
+  .filter-button,
+  .filter-toggle { min-height: 44px; padding: 9px 12px; font-size: 12px; }
   .sort-control .filter-options {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -535,7 +571,7 @@ select:focus-visible {
   }
   .sort-control .sort-button {
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
   }
   .result-count { padding-bottom: 12px; }
   .video-item { grid-template-columns: 1fr; gap: 5px; padding: 18px 0; }
