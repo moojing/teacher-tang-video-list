@@ -544,11 +544,38 @@ select:focus-visible {
 .empty-state-clear:active { transform: scale(0.97); }
 
 .footer {
+  display: grid;
+  gap: 8px;
   padding: 40px 24px 60px;
   color: var(--ink-dim);
   font-size: 10px;
   letter-spacing: 0.08em;
   text-align: center;
+}
+
+.footer-title,
+.footer-disclaimer,
+.footer-updated-at {
+  margin: 0;
+}
+
+.footer-title {
+  color: var(--ink-dim);
+}
+
+.footer-disclaimer {
+  max-width: 40rem;
+  margin-inline: auto;
+  color: rgba(184, 192, 216, 0.82);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+.footer-updated-at {
+  color: rgba(184, 192, 216, 0.72);
+  font-size: 9px;
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 640px) {

@@ -61,6 +61,8 @@ describe('App', () => {
     expect(screen.getByText('共 4 部影片')).toHaveAttribute('aria-live', 'polite')
     expect(screen.getByText('2026.07.10')).toBeInTheDocument()
     expect(screen.getByText('2026.06.01')).toBeInTheDocument()
+    expect(screen.getByText('本網站與唐綺陽官方無任何關係，僅為粉絲整理製作。')).toBeInTheDocument()
+    expect(screen.getByText('最後更新：2026.07.22')).toBeInTheDocument()
   })
 
   test('typing search narrows results by topic', async () => {
