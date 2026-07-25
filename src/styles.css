@@ -297,6 +297,42 @@ select:focus-visible {
   padding: 60px 24px 120px;
 }
 
+.video-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 0 0 28px;
+  padding: 0;
+  border-bottom: 1px solid rgba(201, 164, 76, 0.2);
+}
+
+.video-tab {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 6px 2px;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  color: rgba(238, 224, 196, 0.55);
+  background: transparent;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.video-tab:hover {
+  color: var(--gold);
+}
+
+.video-tab.is-active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
 .filter-bar {
   display: grid;
   gap: 14px;
@@ -493,6 +529,35 @@ select:focus-visible {
   margin-top: 9px;
 }
 
+.video-item-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 14px;
+}
+
+.video-item-action {
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid rgba(63, 113, 105, 0.72);
+  border-radius: 999px;
+  color: #9ed4ca;
+  background: rgba(63, 113, 105, 0.08);
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.1s ease;
+}
+
+.video-item-action:hover {
+  border-color: #9ed4ca;
+  background: rgba(63, 113, 105, 0.18);
+}
+
+.video-item-action:active {
+  transform: scale(0.97);
+}
+
 .video-status,
 .video-topics {
   padding: 3px 9px;
@@ -516,6 +581,16 @@ select:focus-visible {
 }
 
 .empty-state p { margin: 0; }
+
+.empty-state-title {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.empty-state-description {
+  margin-top: 10px;
+  line-height: 1.8;
+}
 
 /* Filters combine with AND, so spell out what is currently applied and offer a
    one-tap reset — otherwise a stale filter looks like a broken search. */
@@ -615,6 +690,8 @@ select:focus-visible {
   .orbit-center small { font-size: 9px; }
 
   .video-explorer { padding: 36px 16px 72px; }
+  .video-tabs { gap: 20px; margin-bottom: 24px; }
+  .video-tab { min-height: 44px; padding: 8px 2px; font-size: 12px; }
   .filter-bar { gap: 20px; margin-bottom: 24px; }
   .filter-options { gap: 8px; }
   .filter-button,
@@ -633,6 +710,8 @@ select:focus-visible {
   .video-item > time { padding-top: 0; font-size: 11px; }
   .video-item article > a { font-size: 16px; line-height: 1.55; }
   .video-meta { gap: 6px; margin-top: 7px; }
+  .video-item-actions { margin-top: 12px; }
+  .video-item-action { min-height: 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
