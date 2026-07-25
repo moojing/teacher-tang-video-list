@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test } from 'vitest'
 import App from './App.jsx'
 
 const fixtureVideos = [
@@ -41,6 +41,10 @@ const fixtureVideos = [
 function renderApp() {
   return render(<App videos={fixtureVideos} />)
 }
+
+beforeEach(() => {
+  window.localStorage.clear()
+})
 
 test('orbit center counts videos once when a video has multiple topics', () => {
   const videos = [{ ...fixtureVideos[0], topics: ['占星', '財務'] }]
@@ -210,6 +214,44 @@ describe('App', () => {
     expect(betaLink).toHaveAttribute('rel', 'noreferrer')
     expect(within(betaItem).getByText('日期待補')).toBeInTheDocument()
     expect(betaItem.querySelector('time')).toHaveTextContent('日期待補')
+  })
+
+  test('clicking a video records it and shows it in the recently watched tab', async () => {
+    const user = userEvent.setup()
+    renderApp()
+
+    await user.click(screen.getByRole('link', { name: 'Alpha 占星入門' }))
+    await user.click(screen.getByRole('tab', { name: '最近看過' }))
+
+    expect(screen.getByText('最近看過 1 部影片')).toBeInTheDocument()
+    expect(screen.getByText('Alpha 占星入門')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '標示「Alpha 占星入門」為已看完並移除' })).toBeInTheDocument()
+  })
+
+  test('recently watched items can be marked complete and removed', async () => {
+    const user = userEvent.setup()
+    renderApp()
+
+    await user.click(screen.getByRole('link', { name: 'Alpha 占星入門' }))
+    await user.click(screen.getByRole('tab', { name: '最近看過' }))
+    await user.click(screen.getByRole('button', { name: '標示「Alpha 占星入門」為已看完並移除' }))
+
+    expect(screen.getByText('最近還沒有看過任何影片')).toBeInTheDocument()
+    expect(screen.queryByText('Alpha 占星入門')).not.toBeInTheDocument()
+  })
+
+  test('recently watched data is restored from localStorage and updated on click', async () => {
+    const user = userEvent.setup()
+    window.localStorage.setItem('teacher-tang-recently-watched', JSON.stringify(['beta']))
+    renderApp()
+
+    await user.click(screen.getByRole('tab', { name: '最近看過' }))
+    expect(screen.getByText('Beta 財務問答')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('tab', { name: '全部影片' }))
+    await user.click(screen.getByRole('link', { name: 'Alpha 占星入門' }))
+
+    expect(window.localStorage.getItem('teacher-tang-recently-watched')).toBe(JSON.stringify(['alpha', 'beta']))
   })
 
   test('hero orbit exposes its count and guidance to assistive technology', () => {

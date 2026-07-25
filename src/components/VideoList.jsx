@@ -13,6 +13,7 @@ export default function VideoList({
   query = '',
   activeStatus = null,
   activeTopic = null,
+  onVideoOpen,
   onClearFilters,
 }) {
   const activeFilters = describeFilters({ query, activeStatus, activeTopic })
@@ -22,7 +23,7 @@ export default function VideoList({
       <p className="result-count" aria-live="polite">共 {videos.length} 部影片</p>
       {videos.length > 0 ? (
         <ul className="video-list">
-          {videos.map((video) => <VideoItem key={video.id} video={video} />)}
+          {videos.map((video) => <VideoItem key={video.id} video={video} onOpen={onVideoOpen} />)}
         </ul>
       ) : (
         <div className="empty-state" aria-live="polite">
