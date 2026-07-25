@@ -19,9 +19,9 @@ export default function App({ videos = importedVideos }) {
   const [sortBy, setSortBy] = useState('date-desc')
   const [recentlyWatchedIds, setRecentlyWatchedIds] = useState(() => readRecentlyWatchedIds())
   const topics = getFilterOptions(videos).topics
-  const videosById = Object.fromEntries(videos.map((video) => [video.id, video]))
+  const videosById = new Map(videos.map((video) => [video.id, video]))
   const recentlyWatchedVideos = recentlyWatchedIds
-    .map((videoId) => videosById[videoId])
+    .map((videoId) => videosById.get(videoId))
     .filter(Boolean)
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function App({ videos = importedVideos }) {
 
   useEffect(() => {
     setRecentlyWatchedIds((currentIds) => {
-      const nextIds = currentIds.filter((videoId) => videosById[videoId])
+      const nextIds = currentIds.filter((videoId) => videosById.has(videoId))
       return nextIds.length === currentIds.length ? currentIds : nextIds
     })
   }, [videos])

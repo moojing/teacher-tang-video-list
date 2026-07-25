@@ -1,11 +1,17 @@
 export const RECENTLY_WATCHED_STORAGE_KEY = 'teacher-tang-recently-watched'
 
 function getStorage() {
-  if (typeof window === 'undefined' || !window.localStorage) {
+  // Accessing window.localStorage can throw (e.g. SecurityError) in restricted
+  // contexts like sandboxed iframes, so treat any failure as "unavailable".
+  try {
+    if (typeof window === 'undefined' || !window.localStorage) {
+      return null
+    }
+
+    return window.localStorage
+  } catch {
     return null
   }
-
-  return window.localStorage
 }
 
 function normalizeRecentlyWatchedIds(value) {
